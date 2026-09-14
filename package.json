@@ -1,0 +1,21 @@
+{
+  "name": "autoupdate-personal-website",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "server": "bun index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "smee-client": "^5.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "octokit": "^5.0.5"
+  }
+}
