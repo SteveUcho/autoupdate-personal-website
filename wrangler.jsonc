@@ -8,7 +8,11 @@
 	"main": "src/index.ts",
 	"compatibility_date": "2026-09-16",
 	"observability": {
-		"enabled": true
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true,
+			"persist": true
+		}
 	},
 	"upload_source_maps": true,
 	"vars": {}
