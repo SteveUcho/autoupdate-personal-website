@@ -31,22 +31,25 @@ async function deployCloudFlare() {
 	try {
 		console.log("Calling Cloudflare deploy webhook...");
 		const res = await fetch(cloudflareDeployWebhook, { method: "POST" });
-		console.log("Cloudflare deploy webhook response:", res);
+		console.log("Cloudflare deploy webhook response:", JSON.stringify(await res.json()));
 	} catch (error) {
 		console.error("Error calling Cloudflare deploy webhook:", error);
 	}
 }
 
 app.webhooks.on("push", async ({ payload }) => {
-	console.log(`Received a push event for ${payload.repository.name}`);
-	await deployCloudFlare();
+	console.log(`Received a push event for ${payload.repository.name}: ${JSON.stringify(payload)}`);
+	// only call if push to main
+	if (payload.ref === "refs/heads/main") {
+		await deployCloudFlare();
+	} else {
+		console.log("Not pushing to main, skipping deploy");
+	}
 });
 
 app.webhooks.on("repository", async ({ payload }) => {
-	console.log(`Received a repository event for ${payload.repository.name} with action ${payload.action}`);
-	if (payload.action === "created" || payload.action === "deleted") {
-		await deployCloudFlare();
-	}
+	console.log(`Received a repository event for ${payload.repository.name} with action ${payload.action}: ${JSON.stringify(payload)}`);
+	await deployCloudFlare();
 });
 
 // This logs any errors that occur.
