@@ -29,10 +29,11 @@ async function deployCloudFlare() {
 		throw new Error("Missing required environment variables");
 	}
 	try {
+		console.log("Calling Cloudflare deploy webhook...");
 		const res = await fetch(cloudflareDeployWebhook, { method: "POST" });
-		console.log(res)
+		console.log("Cloudflare deploy webhook response:", res);
 	} catch (error) {
-		console.error(error)
+		console.error("Error calling Cloudflare deploy webhook:", error);
 	}
 }
 
@@ -42,7 +43,7 @@ app.webhooks.on("push", ({ payload }) => {
 });
 
 app.webhooks.on("repository", ({ payload }) => {
-	console.log(`Received a repository event for ${payload.repository.name}`);
+	console.log(`Received a repository event for ${payload.repository.name} with action ${payload.action}`);
 	if (payload.action === "created" || payload.action === "deleted") {
 		deployCloudFlare();
 	}
