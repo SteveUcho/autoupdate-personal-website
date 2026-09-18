@@ -37,15 +37,15 @@ async function deployCloudFlare() {
 	}
 }
 
-app.webhooks.on("push", ({ payload }) => {
+app.webhooks.on("push", async ({ payload }) => {
 	console.log(`Received a push event for ${payload.repository.name}`);
-	deployCloudFlare();
+	await deployCloudFlare();
 });
 
-app.webhooks.on("repository", ({ payload }) => {
+app.webhooks.on("repository", async ({ payload }) => {
 	console.log(`Received a repository event for ${payload.repository.name} with action ${payload.action}`);
 	if (payload.action === "created" || payload.action === "deleted") {
-		deployCloudFlare();
+		await deployCloudFlare();
 	}
 });
 
