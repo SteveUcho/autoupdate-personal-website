@@ -7,7 +7,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-    "types": ["bun"],
+    "types": ["./worker-configuration.d.ts", "node"],
 
     // Bundler mode
     "moduleResolution": "bundler",
@@ -25,6 +25,7 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+  },
+  "include": ["worker-configuration.d.ts", "src/**/*.ts"]
 }
