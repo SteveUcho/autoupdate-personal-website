@@ -38,13 +38,13 @@ async function deployCloudFlare() {
 
 app.webhooks.on("push", ({ payload }) => {
 	console.log(`Received a push event for ${payload.repository.name}`);
-	deployCloudFlare()
+	deployCloudFlare();
 });
 
 app.webhooks.on("repository", ({ payload }) => {
 	console.log(`Received a repository event for ${payload.repository.name}`);
 	if (payload.action === "created" || payload.action === "deleted") {
-		deployCloudFlare()
+		deployCloudFlare();
 	}
 });
 
